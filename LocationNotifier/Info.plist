@@ -47,5 +47,7 @@
 	<string>Location is used to present location based notifications</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Location is used to present location based notifications</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Location is used to present location based notifications</string>
 </dict>
 </plist>
