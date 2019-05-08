@@ -9,39 +9,55 @@
 import CoreLocation
 import UserNotifications
 
+struct LocationNotificationInfo {
+    
+    // Identifiers
+    let notificationId: String
+    let locationId: String
+    
+    // Location
+    let radius: Double
+    let latitude: Double
+    let longitude: Double
+    
+    // Notification
+    let title: String
+    let body: String
+    let data: [String: Any]?
+    
+    var coordinates: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude,
+                                      longitude: longitude)
+    }
+}
+
+
 class LocationNotificationScheduler: NSObject {
+    
+    // MARK: - Public Properties
+    
+    weak var delegate: LocationNotificationSchedulerDelegate? {
+        didSet {
+            UNUserNotificationCenter.current().delegate = delegate
+        }
+    }
     
     // MARK: - Private Properties
     
-    // Made By We's coordinates center
-    private let centerCoordinates = CLLocationCoordinate2D(latitude: 40.739357, longitude: -73.989711)
     private let locationManager = CLLocationManager()
-    
-    // MARK: - Constants
-    
-    private let notificationId = "notification_id"
-    private let locationId = "location_id"
-    
-    // MARK: - Initialization
-    
-    override init() {
-        super.init()
-        UNUserNotificationCenter.current().delegate = self
-    }
     
     // MARK: - Public Functions
     
     /// Request a geo location notification with optional data.
     ///
     /// - Parameter data: Data that will be sent with the notification.
-    func requestNotification(with data: [String: Any]? = nil) {
+    func requestNotification(with notificationInfo: LocationNotificationInfo) {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse, .authorizedAlways, .notDetermined:
             locationManager.requestWhenInUseAuthorization()
-            askForNotificationPermissions(data: data)
+            askForNotificationPermissions(notificationInfo: notificationInfo)
         case .restricted, .denied:
-            // TODO: Route to settings
-            // https://jira.weworkers.io/browse/RET-1422
+            delegate?.locationPermissionDenied()
             break
         }
     }
@@ -51,7 +67,7 @@ class LocationNotificationScheduler: NSObject {
 
 private extension LocationNotificationScheduler {
     
-    func askForNotificationPermissions(data: [String: Any]?) {
+    func askForNotificationPermissions(notificationInfo: LocationNotificationInfo) {
         guard CLLocationManager.locationServicesEnabled() else {
             return
         }
@@ -59,44 +75,38 @@ private extension LocationNotificationScheduler {
             options: [.alert, .sound, .badge],
             completionHandler: { [weak self] granted, _ in
                 guard granted else {
-                    // TODO: Route to settings
-                    // https://jira.weworkers.io/browse/RET-1422
+                    self?.delegate?.notificationPermissionDenied()
                     return
                 }
-                self?.requestNotification(data: data)
+                self?.requestNotification(notificationInfo: notificationInfo)
         })
     }
     
-    func requestNotification(data: [String: Any]?) {
+    func requestNotification(notificationInfo: LocationNotificationInfo) {
         let notification = UNMutableNotificationContent()
-        notification.title = ""
-        notification.body = ""
+        notification.title = notificationInfo.title
+        notification.body = notificationInfo.body
         notification.sound = UNNotificationSound.default
         
-        if let data = data {
+        if let data = notificationInfo.data {
             notification.userInfo = data
         }
         
-        let destRegion = CLCircularRegion(center: centerCoordinates, radius: 500.0, identifier: locationId)
+        let destRegion = CLCircularRegion(center: notificationInfo.coordinates,
+                                          radius: notificationInfo.radius,
+                                          identifier: notificationInfo.locationId)
         destRegion.notifyOnEntry = true
         destRegion.notifyOnExit = false
         let trigger = UNLocationNotificationTrigger(region: destRegion, repeats: false)
         
-        let request = UNNotificationRequest(identifier: notificationId, content: notification, trigger: trigger)
+        let request = UNNotificationRequest(identifier: notificationInfo.notificationId,
+                                            content: notification,
+                                            trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
 }
 
-// MARK: - UNUserNotificationCenterDelegate
-
-extension LocationNotificationScheduler: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.identifier == notificationId {
-            // Call DeepLink Provider Here. response.notification.request.content.userInfo
-        }
-        completionHandler()
-    }
+protocol LocationNotificationSchedulerDelegate: UNUserNotificationCenterDelegate {
+    func notificationPermissionDenied()
+    func locationPermissionDenied()
 }
