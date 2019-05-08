@@ -14,6 +14,7 @@
 		20EE37D222832BE400350735 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20EE37D022832BE400350735 /* LaunchScreen.storyboard */; };
 		20EE37DD22832BE400350735 /* LocationNotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37DC22832BE400350735 /* LocationNotifierTests.swift */; };
 		20EE37E822832BE400350735 /* LocationNotifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37E722832BE400350735 /* LocationNotifierUITests.swift */; };
+		20EE37F622834A3F00350735 /* LocationNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		20EE37E322832BE400350735 /* LocationNotifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationNotifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EE37E722832BE400350735 /* LocationNotifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotifierUITests.swift; sourceTree = "<group>"; };
 		20EE37E922832BE400350735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationScheduler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				20EE37CE22832BE400350735 /* Assets.xcassets */,
 				20EE37D022832BE400350735 /* LaunchScreen.storyboard */,
 				20EE37D322832BE400350735 /* Info.plist */,
+				20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */,
 			);
 			path = LocationNotifier;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			files = (
 				20EE37CA22832BE200350735 /* ViewController.swift in Sources */,
 				20EE37C822832BE200350735 /* AppDelegate.swift in Sources */,
+				20EE37F622834A3F00350735 /* LocationNotificationScheduler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
