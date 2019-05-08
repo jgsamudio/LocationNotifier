@@ -9,29 +9,6 @@
 import CoreLocation
 import UserNotifications
 
-struct LocationNotificationInfo {
-    
-    // Identifiers
-    let notificationId: String
-    let locationId: String
-    
-    // Location
-    let radius: Double
-    let latitude: Double
-    let longitude: Double
-    
-    // Notification
-    let title: String
-    let body: String
-    let data: [String: Any]?
-    
-    var coordinates: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latitude,
-                                      longitude: longitude)
-    }
-}
-
-
 class LocationNotificationScheduler: NSObject {
     
     // MARK: - Public Properties
@@ -104,9 +81,4 @@ private extension LocationNotificationScheduler {
                                             trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
-}
-
-protocol LocationNotificationSchedulerDelegate: UNUserNotificationCenterDelegate {
-    func notificationPermissionDenied()
-    func locationPermissionDenied()
 }

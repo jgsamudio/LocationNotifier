@@ -15,6 +15,8 @@
 		20EE37DD22832BE400350735 /* LocationNotifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37DC22832BE400350735 /* LocationNotifierTests.swift */; };
 		20EE37E822832BE400350735 /* LocationNotifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37E722832BE400350735 /* LocationNotifierUITests.swift */; };
 		20EE37F622834A3F00350735 /* LocationNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */; };
+		20EE37F9228355B900350735 /* LocationNotificationSchedulerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37F8228355B900350735 /* LocationNotificationSchedulerDelegate.swift */; };
+		20EE37FB228355CE00350735 /* LocationNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE37FA228355CE00350735 /* LocationNotificationInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		20EE37E722832BE400350735 /* LocationNotifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotifierUITests.swift; sourceTree = "<group>"; };
 		20EE37E922832BE400350735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationScheduler.swift; sourceTree = "<group>"; };
+		20EE37F8228355B900350735 /* LocationNotificationSchedulerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationSchedulerDelegate.swift; sourceTree = "<group>"; };
+		20EE37FA228355CE00350735 /* LocationNotificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,7 @@
 				20EE37CE22832BE400350735 /* Assets.xcassets */,
 				20EE37D022832BE400350735 /* LaunchScreen.storyboard */,
 				20EE37D322832BE400350735 /* Info.plist */,
-				20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */,
+				20EE37F7228355A900350735 /* LocationNotificationScheduler */,
 			);
 			path = LocationNotifier;
 			sourceTree = "<group>";
@@ -126,6 +130,16 @@
 				20EE37E922832BE400350735 /* Info.plist */,
 			);
 			path = LocationNotifierUITests;
+			sourceTree = "<group>";
+		};
+		20EE37F7228355A900350735 /* LocationNotificationScheduler */ = {
+			isa = PBXGroup;
+			children = (
+				20EE37F522834A3F00350735 /* LocationNotificationScheduler.swift */,
+				20EE37F8228355B900350735 /* LocationNotificationSchedulerDelegate.swift */,
+				20EE37FA228355CE00350735 /* LocationNotificationInfo.swift */,
+			);
+			path = LocationNotificationScheduler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20EE37FB228355CE00350735 /* LocationNotificationInfo.swift in Sources */,
+				20EE37F9228355B900350735 /* LocationNotificationSchedulerDelegate.swift in Sources */,
 				20EE37CA22832BE200350735 /* ViewController.swift in Sources */,
 				20EE37C822832BE200350735 /* AppDelegate.swift in Sources */,
 				20EE37F622834A3F00350735 /* LocationNotificationScheduler.swift in Sources */,
