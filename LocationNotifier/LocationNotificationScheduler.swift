@@ -14,9 +14,13 @@ class LocationNotificationScheduler: NSObject {
     // MARK: - Private Properties
     
     // Made By We's coordinates center
-    private let officeCenterLocation = CLLocationCoordinate2D(latitude: 40.739357, longitude: -73.989711)
+    private let centerCoordinates = CLLocationCoordinate2D(latitude: 40.739357, longitude: -73.989711)
     private let locationManager = CLLocationManager()
-    private let geoLocationNotificationId = "made_by_we_location_id"
+    
+    // MARK: - Constants
+    
+    private let notificationId = "notification_id"
+    private let locationId = "location_id"
     
     // MARK: - Initialization
     
@@ -41,10 +45,13 @@ class LocationNotificationScheduler: NSObject {
             break
         }
     }
+}
+
+// MARK: - Private Functions
+
+private extension LocationNotificationScheduler {
     
-    // MARK: - Private Functions
-    
-    private func askForNotificationPermissions(data: [String: Any]?) {
+    func askForNotificationPermissions(data: [String: Any]?) {
         guard CLLocationManager.locationServicesEnabled() else {
             return
         }
@@ -60,7 +67,7 @@ class LocationNotificationScheduler: NSObject {
         })
     }
     
-    private func requestNotification(data: [String: Any]?) {
+    func requestNotification(data: [String: Any]?) {
         let notification = UNMutableNotificationContent()
         notification.title = ""
         notification.body = ""
@@ -70,15 +77,14 @@ class LocationNotificationScheduler: NSObject {
             notification.userInfo = data
         }
         
-        let destRegion = CLCircularRegion(center: officeCenterLocation, radius: 500.0, identifier: "made_by_we_location")
+        let destRegion = CLCircularRegion(center: centerCoordinates, radius: 500.0, identifier: locationId)
         destRegion.notifyOnEntry = true
         destRegion.notifyOnExit = false
         let trigger = UNLocationNotificationTrigger(region: destRegion, repeats: false)
         
-        let request = UNNotificationRequest(identifier: geoLocationNotificationId, content: notification, trigger: trigger)
+        let request = UNNotificationRequest(identifier: notificationId, content: notification, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
-    
 }
 
 // MARK: - UNUserNotificationCenterDelegate
@@ -88,10 +94,9 @@ extension LocationNotificationScheduler: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.identifier == geoLocationNotificationId {
+        if response.notification.request.identifier == notificationId {
             // Call DeepLink Provider Here. response.notification.request.content.userInfo
         }
         completionHandler()
     }
-    
 }
