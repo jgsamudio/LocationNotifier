@@ -37,11 +37,11 @@ The `LocationNotificationScheduler` needs a `LocationNotificationInfo` object to
 
 The `LocationNotificationSchedulerDelegate` will provide functions to interact with the `LocationNotificationScheduler`. 
 
-#### Set the delegate
+### Set the delegate
 
 `locationNotificationScheduler.delegate = self`
 
-#### Available Functions 
+### Available Functions 
 
 ```
 /// Called when the user has denied the notification permission prompt.
@@ -56,7 +56,7 @@ func locationPermissionDenied()
 func notificationScheduled(error: Error?)
 ```
 
-#### UNUserNotificationCenterDelegate
+### UNUserNotificationCenterDelegate
 
 The `LocationNotificationSchedulerDelegate` also extends the `UNUserNotificationCenterDelegate` which provides extra functions that interact with the notification. 
 
@@ -78,7 +78,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 }
 ```
 
-### References
+## References
 
 - [UNLocationNotificationTrigger](https://developer.apple.com/documentation/usernotifications/unlocationnotificationtrigger)
 
