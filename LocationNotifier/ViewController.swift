@@ -11,13 +11,16 @@ import UserNotifications
 
 class ViewController: UIViewController {
     
-    let locationNotificationScheduler = LocationNotificationScheduler()
+    private let locationNotificationScheduler = LocationNotificationScheduler()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         locationNotificationScheduler.delegate = self
     }
     
+    /// Center button to schedule a notification.
+    ///
+    /// - Parameter sender: Button sender.
     @IBAction func scheduleLocationNotification(_ sender: Any) {
         let notificationInfo = LocationNotificationInfo(notificationId: "nyc_promenade_notification_id",
                                                         locationId: "nyc_promenade_location_id",

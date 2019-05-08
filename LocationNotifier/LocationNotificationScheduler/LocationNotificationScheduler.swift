@@ -60,20 +60,8 @@ private extension LocationNotificationScheduler {
     }
     
     func requestNotification(notificationInfo: LocationNotificationInfo) {
-        let notification = UNMutableNotificationContent()
-        notification.title = notificationInfo.title
-        notification.body = notificationInfo.body
-        notification.sound = UNNotificationSound.default
-        
-        if let data = notificationInfo.data {
-            notification.userInfo = data
-        }
-        
-        let destRegion = CLCircularRegion(center: notificationInfo.coordinates,
-                                          radius: notificationInfo.radius,
-                                          identifier: notificationInfo.locationId)
-        destRegion.notifyOnEntry = true
-        destRegion.notifyOnExit = false
+        let notification = notificationContent(notificationInfo: notificationInfo)
+        let destRegion = destinationRegion(notificationInfo: notificationInfo)
         let trigger = UNLocationNotificationTrigger(region: destRegion, repeats: false)
         
         let request = UNNotificationRequest(identifier: notificationInfo.notificationId,
@@ -85,5 +73,26 @@ private extension LocationNotificationScheduler {
                 self?.delegate?.notificationScheduled(error: error)
             }
         }
+    }
+    
+    func notificationContent(notificationInfo: LocationNotificationInfo) -> UNMutableNotificationContent {
+        let notification = UNMutableNotificationContent()
+        notification.title = notificationInfo.title
+        notification.body = notificationInfo.body
+        notification.sound = UNNotificationSound.default
+        
+        if let data = notificationInfo.data {
+            notification.userInfo = data
+        }
+        return notification
+    }
+    
+    func destinationRegion(notificationInfo: LocationNotificationInfo) -> CLCircularRegion {
+        let destRegion = CLCircularRegion(center: notificationInfo.coordinates,
+                                          radius: notificationInfo.radius,
+                                          identifier: notificationInfo.locationId)
+        destRegion.notifyOnEntry = true
+        destRegion.notifyOnExit = false
+        return destRegion
     }
 }
