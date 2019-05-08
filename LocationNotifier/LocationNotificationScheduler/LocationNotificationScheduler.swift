@@ -79,6 +79,11 @@ private extension LocationNotificationScheduler {
         let request = UNNotificationRequest(identifier: notificationInfo.notificationId,
                                             content: notification,
                                             trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
+        
+        UNUserNotificationCenter.current().add(request) { [weak self] (error) in
+            DispatchQueue.main.async {
+                self?.delegate?.notificationScheduled(error: error)
+            }
+        }
     }
 }

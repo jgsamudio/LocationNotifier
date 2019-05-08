@@ -11,4 +11,5 @@ import UserNotifications
 protocol LocationNotificationSchedulerDelegate: UNUserNotificationCenterDelegate {
     func notificationPermissionDenied()
     func locationPermissionDenied()
+    func notificationScheduled(error: Error?)
 }

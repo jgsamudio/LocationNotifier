@@ -35,11 +35,29 @@ class ViewController: UIViewController {
 extension ViewController: LocationNotificationSchedulerDelegate {
     
     func locationPermissionDenied() {
-        presentSettingsAlert(message: "The location permission was not authorized. Please enable it in Settings to continue.")
+        let message = "The location permission was not authorized. Please enable it in Settings to continue."
+        presentSettingsAlert(message: message)
     }
     
     func notificationPermissionDenied() {
-        presentSettingsAlert(message: "The notification permission was not authorized. Please enable it in Settings to continue.")
+        let message = "The notification permission was not authorized. Please enable it in Settings to continue."
+        presentSettingsAlert(message: message)
+    }
+    
+    func notificationScheduled(error: Error?) {
+        if let error = error {
+            let alertController = UIAlertController(title: "Notification Schedule Error",
+                                                    message: error.localizedDescription,
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertController, animated: true)
+        } else {
+            let alertController = UIAlertController(title: "Notification Scheduled!",
+                                                    message: "You will be notified when you are near the location!",
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertController, animated: true)
+        }
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
