@@ -2,8 +2,8 @@
 //  LocationNotifierTests.swift
 //  LocationNotifierTests
 //
-//  Created by Jonathan Samudio on 5/1/19.
-//  Copyright © 2019 JustBinary. All rights reserved.
+//  Created by Jonathan Samudio on 5/8/19.
+//  Copyright © 2019 Jonathan Samudio. All rights reserved.
 //
 
 import XCTest
