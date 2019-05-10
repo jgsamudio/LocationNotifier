@@ -30,8 +30,10 @@ class LocationNotificationScheduler: NSObject {
     /// - Parameter data: Data that will be sent with the notification.
     func requestNotification(with notificationInfo: LocationNotificationInfo) {
         switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse, .authorizedAlways, .notDetermined:
+        case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
+            askForNotificationPermissions(notificationInfo: notificationInfo)
+        case .authorizedWhenInUse, .authorizedAlways:
             askForNotificationPermissions(notificationInfo: notificationInfo)
         case .restricted, .denied:
             delegate?.locationPermissionDenied()
@@ -52,7 +54,9 @@ private extension LocationNotificationScheduler {
             options: [.alert, .sound, .badge],
             completionHandler: { [weak self] granted, _ in
                 guard granted else {
-                    self?.delegate?.notificationPermissionDenied()
+                    DispatchQueue.main.async {
+                        self?.delegate?.notificationPermissionDenied()
+                    }
                     return
                 }
                 self?.requestNotification(notificationInfo: notificationInfo)
