@@ -3,7 +3,7 @@ Location Triggered Notification App using UNLocationNotificationTrigger
 
 Tapping the _"Schedule Location Notification"_ button will schedule a notification to go off when the device is ~500 meters away from the Brooklyn Promenade
 
-![lock_screen.png](Images/lock_screen.png)
+![lock_screen.png](images/lock_screen.png)
 
 ## Usage
 
